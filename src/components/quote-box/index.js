@@ -5,12 +5,19 @@ import QuoteText from '../quote-text'
 import QuoteAuthor from '../quote-author'
 import Buttons from '../buttons'
 
-const QuoteBox = () => (
+import { connect } from 'react-redux'
+
+const QuoteBox = ({ quote, author }) => (
     <div className="quote-box">
-        <QuoteText />
-        <QuoteAuthor />
+        <QuoteText text={quote} />
+        <QuoteAuthor author={author} />
         <Buttons />
     </div>
 )
 
-export default QuoteBox
+const mapStateToProps = ({ quoteReducer }) => ({
+    quote: quoteReducer.quote,
+    author: quoteReducer.author
+})
+
+export default connect(mapStateToProps)(QuoteBox)

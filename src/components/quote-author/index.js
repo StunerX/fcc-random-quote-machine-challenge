@@ -1,9 +1,9 @@
 import React from 'react'
 import './quote-author.css'
 
-const QuoteAuthor = () => (
+const QuoteAuthor = ({ author }) => (
     <div className="quote-author">
-        - <span>Cleyton Santos</span>
+        - <span>{author}</span>
     </div>
 )
 
