@@ -10,11 +10,12 @@ import axios from 'axios'
 
 class Buttons extends Component {
     handleClickQuote = () => {
-        const url = 'https://gist.githubusercontent.com/camperbot/5a022b72e96c4c9585c32bf6a75f62d9/raw/e3c6895ce42069f0ee7e991229064f167fe8ccdc/quotes.json'
-        axios.get(url).then((result) => {
-            console.log('recebeu dados', result.data.quotes[0])
-            this.props.nextAuthor(result.data.quotes[0])
-        })
+        let randomNumber = Math.floor(Math.random() * this.props.quotes.length)
+
+        let quote = this.props.quotes[randomNumber]
+
+        this.props.nextAuthor(quote)
+
     }
     render() {
         return (
@@ -34,10 +35,14 @@ class Buttons extends Component {
 }
 
 
+const mapStateToProps = ({ quoteListReducer }) => ({
+    quotes: quoteListReducer
+})
+
 const mapDispatchtoProps = dispatch => {
     return {
         nextAuthor: (newQuote) => dispatch({ type: 'NEXT_AUTHOR', newQuote })
     }
 }
 
-export default connect(null, mapDispatchtoProps)(Buttons)
+export default connect(mapStateToProps, mapDispatchtoProps)(Buttons)
